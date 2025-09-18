@@ -1,0 +1,72 @@
+// Container do chat
+
+.chatContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    height: 80vh;
+    background-color: #F5F5F5;
+
+    // Estilização das mensagens
+
+    .mensagens {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+        background-color: white;
+        border-radius: 10px;
+
+        .mensagem {
+            background-color: #E0E0E0;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            max-width: fit-content;
+            font-size: 18px;
+        }
+
+        // Estilização separada para a mensagem do usuário
+
+        .usuario {
+            background-color: #95ebc4;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+    }
+
+    // Estilizando o input
+
+    .inputContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+
+        .inputPergunta {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+            background-color: white;
+            border-radius: 10px;
+
+            .prompt {
+                flex: 1;
+                height: 40px;
+                font-size: 20px;
+                padding: 0 15px;
+                border: none;
+                outline: none;
+                background-color: transparent;
+            }
+
+            .bi-send-fill {
+                font-size: 25px;
+                cursor: pointer;
+                padding-right: 10px;
+            }
+        }
+    }
+}
