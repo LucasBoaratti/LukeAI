@@ -1,3 +1,23 @@
+// Importando as variáveis globais
+
+@use '../../Styles/Variaveis.scss' as *;
+
+// Animando a entrada das mensagens
+
+@keyframes fadeMensagemUsuario {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeMensagemIA {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 // Container do chat
 
 .chatContainer {
@@ -5,8 +25,8 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 30px;
-    height: 80vh;
-    background-color: #F5F5F5;
+    height: 90vh;
+    background-color: $cor-fundo-chat;
 
     // Estilização das mensagens
 
@@ -20,21 +40,27 @@
         // Estilização da mensagem da IA e do usuário
 
         .mensagem {
-            background-color: #E0E0E0;
+            background-color: $cor-mensagem-ia;
             padding: 10px;
             border-radius: 10px;
             margin-bottom: 15px;
             max-width: fit-content;
             font-size: 18px;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: fadeMensagemIA 0.5s ease-in-out forwards;
         }
 
         // Estilização separada para a mensagem do usuário
 
         .usuario {
-            background-color: #95ebc4;
+            background-color: $cor-mensagem-usuario;
             display: flex;
             align-items: center;
             margin-left: auto;
+            opacity: 0;
+            transform: translateX(20px);
+            animation: fadeMensagemUsuario 0.5s ease-in-out forwards;
         }
     }
 
@@ -48,6 +74,7 @@
 
         .inputPergunta {
             display: flex;
+            position: relative;
             align-items: center;
             width: 100%;
             max-width: 1000px;
@@ -61,13 +88,27 @@
                 padding: 0 15px;
                 border: none;
                 outline: none;
-                background-color: transparent;
+                background-color: white;
+                border-radius: 10px;
             }
 
-            .bi-send-fill {
-                font-size: 25px;
+            .erroPrompt {
+                position: absolute;
+                right: 35%;
+                top: 120%;
+                font-size: 18px;
+                color: $cor-cabecalho;   
+            }
+
+            .enviarPrompt {
                 cursor: pointer;
-                padding-right: 10px;
+                border: none;
+                background-color: white;
+
+                .bi-send-fill {
+                    font-size: 25px;
+                    margin-right: 10px;
+                }
             }
         }
     }
