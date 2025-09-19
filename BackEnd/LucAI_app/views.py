@@ -10,8 +10,8 @@ load_dotenv()
 API_KEY = os.getenv("GEMINI_API_KEY")
 
 class TextoGenerativoLCAPIView(ListCreateAPIView):
-    # Pegando os dados e ordenando pela data de criação
-    queryset = TextoGenerativo.objects.all().order_by("-data_criacao")
+    # Pegando os dados e ordenando em ordem crescente
+    queryset = TextoGenerativo.objects.all().order_by("data_criacao")
     
     serializer_class = TextoGenerativoSerializer
 
