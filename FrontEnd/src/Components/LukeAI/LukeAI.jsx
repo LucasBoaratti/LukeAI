@@ -37,6 +37,7 @@ export function LukeAI() {
             await axios.post("http://127.0.0.1:8000/LukeAI/prompt", dados);
 
             get_resposta();
+            reset();
             setPrompt("");
         }
         catch(error) {
@@ -99,7 +100,17 @@ export function LukeAI() {
                             </div>
                             {/* Resposta da IA */}
                             <div className="mensagemIA">
-                                <p className="mensagem">{mensagem.resposta}</p>
+                                {/* Verificando o tipo de resposta da IA */}
+                                {mensagem.resposta.includes("```")
+                                    // Se pedir código, mostra em um formato diferente
+                                    ? (
+                                        <div className="mensagem">
+                                            <pre><code>{mensagem.resposta}</code></pre>
+                                        </div>
+                                    )
+                                    // Se não for, mostra uma resposta comum
+                                    : <p className="mensagem">{mensagem.resposta}</p>
+                                } 
                             </div>
                         </div>
                     ))}
@@ -115,7 +126,7 @@ export function LukeAI() {
                                 handleSubmit(post_prompt)();
                             }
                         }} />
-                        <button type="submit" onClick={() => reset()} className="enviarPrompt">
+                        <button type="submit" className="enviarPrompt">
                             <i class="bi bi-send-fill" tabIndex={0} onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 // Envio com enter aplicado no botão também
