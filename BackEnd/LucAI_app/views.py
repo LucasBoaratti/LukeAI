@@ -1,5 +1,6 @@
 import os, requests, json
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, DestroyAPIView
+from rest_framework.response import Response
 from dotenv import load_dotenv
 from .models import TextoGenerativo
 from .serializers import TextoGenerativoSerializer
@@ -51,3 +52,10 @@ class TextoGenerativoLCAPIView(ListCreateAPIView):
         
         # Salvando o texto e a resposta no banco de dados
         serializer.save(prompt=prompt, resposta=resposta)
+
+# Classe que apaga todos os textos do banco de dados
+class DeleteTextoGenerativo(DestroyAPIView):
+    def delete(self, request, *args, **kwargs):
+        TextoGenerativo.objects.all().delete()
+
+        return Response({"mensagem": "Todas as mensagens foram apagadas com sucesso!"})

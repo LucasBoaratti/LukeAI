@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { DeletarMensagensModal } from "../Modais/DeletarMensagensModal";
 import axios from "axios";
 
 // Validações utilizando o zod
@@ -12,10 +13,11 @@ const validacaoPrompt = z.object({
 });
 
 export function LukeAI() {
-    // Estados que controlam o prompt e a resposta
+    // Estados que controlam o prompt, o modal e a resposta
     const [prompt, setPrompt] = useState([]);
     const [resposta, setResposta] = useState([]);
-    const copiarMensagem = useRef(null);
+    const [modal, setModal] = useState(false);
+    const copiarMensagemIA = useRef(null);
 
     const {
         register, //Registre esses dados e valide
@@ -28,8 +30,8 @@ export function LukeAI() {
 
     // Função de copiar a mensagem da IA
     function copiarMensagem() {
-        if (copiarMensagem.current) {
-            const selecionarTexto = copiarMensagem.current.innerText;
+        if (copiarMensagemIA.current) {
+            const selecionarTexto = copiarMensagemIA.current.innerText;
 
             navigator.clipboard.writeText(selecionarTexto)
             .then(() => {
@@ -46,6 +48,13 @@ export function LukeAI() {
         // Salvando os dados do usuário no prompt
         const dados = {
             ...data,
+        }
+
+        // Validando se o usuário enviou nenhuma requisição
+        if(!dados.prompt || dados.prompt.trim() === "") {
+            alert("O prompt não pode ser vazio.");
+
+            return;
         }
 
         try {
@@ -95,6 +104,13 @@ export function LukeAI() {
 
     useEffect(() => {
         get_resposta();
+
+        // Rolagem automática
+        const mensagens = document.querySelector(".mensagens");
+
+        if (mensagens) {
+            mensagens.scrollTop = mensagens.scrollHeight;
+        }
     }, []);
 
     return (
@@ -121,15 +137,15 @@ export function LukeAI() {
                                     // Se pedir código, mostra em um formato diferente
                                     ? (
                                         <div className="mensagem">
-                                            <pre><code>{mensagem.resposta}</code></pre>
-                                            <button type="button" onClick={copiarMensagem}><i class="bi bi-copy"></i></button>
+                                            <pre><code ref={copiarMensagemIA}>{mensagem.resposta}</code></pre>
+                                            <button type="button" onClick={copiarMensagem} className="botaoCopiar"><i class="bi bi-copy"></i></button>
                                         </div>
                                     )
                                     // Se não for, mostra uma resposta comum
                                     : (
-                                        <div>
-                                            <p className="mensagem">{mensagem.resposta}</p>
-                                            <button type="button" onClick={copiarMensagem}><i class="bi bi-copy"></i></button>
+                                        <div className="mensagem">
+                                            <p className="mensagem" ref={copiarMensagemIA}>{mensagem.resposta}</p>
+                                            <button type="button" onClick={copiarMensagem} className="botaoCopiar"><i class="bi bi-copy"></i></button>
                                         </div>
                                     )
                                 } 
@@ -161,6 +177,11 @@ export function LukeAI() {
                             {errors.prompt && <p>{errors.prompt.message}</p>}
                         </div>
                     </form>
+                    {/* Botão de apagar mensagens */}
+                    <div className="apagarMensagens">
+                        <button type="button" className="botaoApagar" onClick={() => setModal(true)}>Apagar mensagens</button>
+                    </div>
+                    <DeletarMensagensModal openModal={modal} closeModal={() => setModal(false)} atualizarChat={get_resposta}/>
                 </section>
             </section>
         </main>

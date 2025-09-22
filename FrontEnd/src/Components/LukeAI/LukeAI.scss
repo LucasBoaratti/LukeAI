@@ -58,6 +58,18 @@
             word-break: break-word;
         }
 
+        // Estilizando o botão de copiar a mensagem
+
+        .botaoCopiar {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .botaoCopiar i {
+            font-size: 20px;
+        }
+
         // Estilização separada para a mensagem do usuário
 
         .usuario {
@@ -116,6 +128,28 @@
                     font-size: 25px;
                     margin-right: 10px;
                 }
+            }
+        }
+
+        // Estilizando o botão de apagar mensagens
+
+        .apagarMensagens {
+            margin-left: 20px;
+
+            .botaoApagar {
+                font-size: 18px;
+                padding: 8px;
+                background-color: $cor-mensagem-usuario;
+                color: black;
+                border: none;
+                border-radius: 15px;
+                cursor: pointer;
+                transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            }
+
+            .botaoApagar:hover {
+                background-color: $cor-cabecalho;
+                color: white;
             }
         }
     }

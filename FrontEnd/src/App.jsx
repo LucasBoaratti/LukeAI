@@ -1,13 +1,12 @@
-import { Cabecalho } from "./Components/Cabecalho/Cabecalho";
-import { LukeAI } from "./Components/LukeAI/LukeAI";
+import { BrowserRouter } from "react-router-dom";
+import { Rotas } from "./Routes/Rotas";
 import './Styles/Main.scss';
 
 function App() {
     return (
-        <>
-            <Cabecalho/>
-            <LukeAI/>
-        </>
+        <BrowserRouter>
+            <Rotas/>
+        </BrowserRouter>
     );
 }
 
