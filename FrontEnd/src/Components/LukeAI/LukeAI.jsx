@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,7 @@ export function LukeAI() {
     // Estados que controlam o prompt e a resposta
     const [prompt, setPrompt] = useState([]);
     const [resposta, setResposta] = useState([]);
+    const copiarMensagem = useRef(null);
 
     const {
         register, //Registre esses dados e valide
@@ -24,6 +25,21 @@ export function LukeAI() {
     } = useForm({
         resolver: zodResolver(validacaoPrompt), //Fazendo a resolução com o schema acima (validacaoPrompt)
     });
+
+    // Função de copiar a mensagem da IA
+    function copiarMensagem() {
+        if (copiarMensagem.current) {
+            const selecionarTexto = copiarMensagem.current.innerText;
+
+            navigator.clipboard.writeText(selecionarTexto)
+            .then(() => {
+                alert("Mensagem copiada com sucesso!");
+            })
+            .catch((error) => {
+                console.error("Erro ao copiar mensagem: ", error);
+            });
+        }
+    }
 
     // Função assíncrona para postar o prompt do usuário
     async function post_prompt(data) {
@@ -106,10 +122,16 @@ export function LukeAI() {
                                     ? (
                                         <div className="mensagem">
                                             <pre><code>{mensagem.resposta}</code></pre>
+                                            <button type="button" onClick={copiarMensagem}><i class="bi bi-copy"></i></button>
                                         </div>
                                     )
                                     // Se não for, mostra uma resposta comum
-                                    : <p className="mensagem">{mensagem.resposta}</p>
+                                    : (
+                                        <div>
+                                            <p className="mensagem">{mensagem.resposta}</p>
+                                            <button type="button" onClick={copiarMensagem}><i class="bi bi-copy"></i></button>
+                                        </div>
+                                    )
                                 } 
                             </div>
                         </div>
