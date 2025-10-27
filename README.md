@@ -32,49 +32,55 @@ code .
 
 5. Após entrar no VSCode, acesse a [API do Gemini](https://aistudio.google.com/api-keys) para conseguir a chave da API;
 
-6. Depois de pegar a chave da API, volte para o VSCode, abra o terminal pelo atalho CTRL + J ou CTRL + ', e vá até a pasta BackEnd:
+6. Depois, você irá criar um arquivo .env e irá inserir a seguinte linha de código:
+
+```bash
+API_KEY="SUA_CHAVE"
+```
+
+7. Depois de pegar, e inserir, a chave da API, volte para o VSCode, abra o terminal pelo atalho CTRL + J ou CTRL + ', e vá até a pasta BackEnd:
 
 ```bash
 cd .\BackEnd
 ```
 
-7. E depois crie o ambiente virtual do python:
+8. E depois crie o ambiente virtual do python:
 
 ```bash
 python -m venv .venv
 ```
 
-8. Após a instalação, ative a pasta .venv:
+9. Após a instalação, ative a pasta .venv:
 
 ```bash
 .\.venv\Scripts\activate
 ```
 
-9. Agora, instale as bibliotecas com o requirements.txt:
+10. Agora, instale as bibliotecas com o requirements.txt:
 
 ```bash 
 pip install -r .\requirements.txt
 ```
 
-10. E depois, rode o servidor:
+11. E depois, rode o servidor:
 
 ```bash
 python .\manage.py runserver
 ```
 
-11. Agora, abra outro terminal clicando em "+" e vá para a pasta FrontEnd:
+12. Agora, abra outro terminal clicando em "+" e vá para a pasta FrontEnd:
 
 ```bash
 cd .\FrontEnd
 ```
 
-12. Agora, crie a pasta node_modules:
+13. Agora, crie a pasta node_modules:
 
 ```bash
 npm install
 ```
 
-13: Depois de instalar a pasta, rode o servidor:
+14: Depois de instalar a pasta, rode o servidor:
 
 ```bash
 npm run dev
